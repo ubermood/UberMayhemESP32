@@ -17,4 +17,11 @@ The project has no deadline and will only progress when motivation and opportuni
 -   Retrieve GPS position including other available sensors from a mobile phone connecting to a webpage
 -   Create an application for Portapack that can trigger various functions on the ESP32. The application should fetch available functions that the ESP32 has and present them on the Portapack.
 -   IR blaster
+-   MQTT client - to be able to send out log messages / other info from PortaPack
 - etc.
+
+## Progress
+
+-   Web page for configuring settings such as WiFi, IP, Hostname, MQTT server
+-   Console available on the web page to view debugging information, as the serial port communication via USB interface on the ESP32-S2 mini is acting up
+-   It can now communicate with PortaPack. Provide GPS coordinates, apps from ESP, etc.
