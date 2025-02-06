@@ -1,0 +1,22 @@
+# Infos: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html
+
+# Name    Type  SubType  Offset   Size      Flags
+# ------- ----- -------- -------- --------- -----
+
+# Custom - ESP32 (with OTA)
+nvs,      data, nvs,     0x009000, 0x004000,
+otadata,  data, ota,     0x00d000, 0x002000,
+ota_0,    app,  ota_0,           , 1536K,
+ota_1,    app,  ota_1,           , 1536K,
+
+# Custom - ESP32 (no OTA)
+# app0,     app,  factory, 0x10000, 0x3B0000,
+# nvs,      data, nvs,            , 0x40000,
+
+# Default - ESP32
+# nvs,      data, nvs,     0x009000, 0x005000,
+# otadata,  data, ota,     0x00e000, 0x002000,
+# app0,     app,  ota_0,   0x010000, 0x140000,
+# app1,     app,  ota_1,   0x150000, 0x140000,
+# spiffs,   data, spiffs,  0x290000, 0x160000,
+# coredump, data, coredump,0x3F0000, 0x010000,

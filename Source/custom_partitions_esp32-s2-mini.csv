@@ -1,0 +1,24 @@
+# Infos: https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/partition-tables.html
+
+# Name    Type  SubType  Offset   Size      Flags
+# ------- ----- -------- -------- --------- -----
+
+# Custom - ESP32-S2 Mini (with OTA)
+nvs,      data, nvs,     0x009000, 0x004000,
+otadata,  data, ota,     0x00d000, 0x002000,
+ota_0,    app,  ota_0,           , 1536K,
+ota_1,    app,  ota_1,           , 1536K,
+
+# Custom - ESP32-S2 Mini (no OTA)
+# nvs,        data, nvs,     0x009000, 24K,
+# phy_init,   data, phy,     0x00f000, 4K,
+# factory,    app,  factory, 0x010000, 2M,
+# nvs_storage,data, nvs,             , 100K
+
+# Default - ESP32-S2 Mini (with OTA)
+# nvs,      data, nvs,     0x009000, 0x004000,
+# otadata,  data, ota,     0x00d000, 0x002000,
+# phy_init, data, phy,     0x00f000, 0x001000,
+# factory,  app,  factory, 0x010000, 1M,
+# ota_0,    app,  ota_0,   0x110000, 1M,
+# ota_1,    app,  ota_1,   0x210000, 1M,
