@@ -146,7 +146,7 @@ void onWsFrame(PsychicWebSocketRequest *request, httpd_ws_frame *frame) {
 
     // Syntax: setLight={"light":120.00}
     else if (strncasecmp(data, "setLight=", 9) == 0)
-      uberPortapack.setLightDataJson(data + 7);
+      uberPortapack.setLightDataJson(data + 9);
 
     // Syntax: ppShell=<command>
     else if (strncasecmp(data, "ppShell=", 8) == 0)
@@ -229,7 +229,7 @@ bool onPPShellData(const uint8_t* data, size_t data_len) {
 void onPayloadStateChange(bool state) {
   std::string message;
   message = uberPayload.getPayloadStateJson();
-  uberESP.wsPrintf("{\"payloadstate\":%s}", message.c_str());
+  uberESP.wsPrintf( "{\"payloadstate\":%s}", message.c_str() );
 };
 
 // -----------------------------------------------------------------------
