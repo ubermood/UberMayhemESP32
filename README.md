@@ -25,3 +25,12 @@ The project has no deadline and will only progress when motivation and opportuni
 -   Web page for configuring settings such as WiFi, IP, Hostname, MQTT server
 -   Console available on the web page to view debugging information, as the serial port communication via USB interface on the ESP32-S2 mini is acting up
 -   It can now communicate with PortaPack. Provide GPS coordinates, apps from ESP, etc.
+-   ...
+-   ...
+-   Yes, there have been some progress, but more needs to be done...
+
+## Screenshot (sensors, console & file browser)
+![PortaPack_Screenshot1](https://github.com/user-attachments/assets/2c9b018d-c21a-4518-889c-0796bb0e53d8)
+
+## Screenshot (payloads, screen & file browser)
+![PortaPack_Screenshot2](https://github.com/user-attachments/assets/27a51c0b-73ed-47f4-9f83-1df552cc4616)
