@@ -4,8 +4,8 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 <head>
 <meta name="viewport" content="width=540"/>
 <style>
-    * { transition: opacity 0.5s; border-radius: 4px; }
-    *:focus { outline: none; }
+	* { transition: opacity 0.5s; border-radius: 4px; }
+	*:focus { outline: none; }
 	:root {
 		--angleZ: 0deg; --progress: 0%; --progressOpacity: calc(120% + -100 * clamp(0%, var(--progress), 1%));
 	}
@@ -18,9 +18,9 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		font-size: 11px;
 		height: 100vh;
 		margin:0;
-    	font-family: monospace;
+		font-family: monospace;
 	}
-    input, select {
+	input, select {
 		background: #0006;
 		color: #ddd;
 		border: 0;
@@ -28,10 +28,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		line-height: 20px;
 		width: 130px;
 		height: 24px;
-    }
+	}
 	input[type='button'] {
-	    background: #822;
-	    color: #fff;
+		background: #822;
+		color: #fff;
 	}
 	#divBanner {
 		background: #f008;
@@ -59,10 +59,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		border-radius: 4px;
 	}
 	#divTopBar {
-	    background: #0004;
-	    font-family: sans-serif;
-	    margin-bottom: 20px !important;
-	    text-align: center;
+		background: #0004;
+		font-family: sans-serif;
+		margin-bottom: 20px !important;
+		text-align: center;
 		line-height: 26px;
 	}
 	#divMain {
@@ -74,39 +74,39 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		box-shadow: 0 0 32px 16px #0004;
 		border: 2px solid #000;
 		margin-top: 20px;
-    }
-    #wsInput {
+	}
+	#wsInput {
 		width: 410px;
 		opacity: var(--progressOpacity);
-    }
-    #wsOutput {
-        background: #0008;
-        color: #ddd;
-        font-size: 7pt;
-        height: 250px;
-        border: 1px solid #000;
-        width: -webkit-fill-available;
-    }
-    #divStatus {
-	    color: #0008;
-	    font-size: 32px;
-	    width: 32px;
+	}
+	#wsOutput {
+		background: #0008;
+		color: #ddd;
+		font-size: 7pt;
+		height: 250px;
+		border: 1px solid #000;
+		width: -webkit-fill-available;
+	}
+	#divStatus {
+		color: #0008;
+		font-size: 32px;
+		width: 32px;
 		height: 32px;
-	    line-height: 32px;
-	    position: absolute;
-	    border-radius: 8px;
-	    text-align: center;
-	    border: 3px solid #000;
-	    box-shadow: 0 0 8px 2px #fff6;
-    }
-    #divCompass {
+		line-height: 32px;
+		position: absolute;
+		border-radius: 8px;
+		text-align: center;
+		border: 3px solid #000;
+		box-shadow: 0 0 8px 2px #fff6;
+	}
+	#divCompass {
 		background: #044;
 		width: 100px;
 		height: 100px;
 		border: 3px dashed #fff2;
 		border-radius: 50%;
 		transform: rotate(var(--angleZ));
-    }
+	}
 	#divCompass div { position: absolute; font-weight: bold; font-size: 12pt; }
 	#divCompass div:nth-child(1) { left: 45px; top: 10px; }
 	#divCompass div:nth-child(2) { right: 80px; top: 42px; }
@@ -123,19 +123,19 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		top: -49px;
 		left: 47px;
 		margin-top: -10px;
-    }
-    #divScreenProgress {
-        background: linear-gradient(to right, #fffa 0%, #fffa var(--progress), #0000 var(--progress));
-        width: 200px;
-        height: 8px;
-        position: absolute;
-        z-index: 1;
-        margin: 18px;
-        border-radius: 4px;
-        border: 1px solid #000;
-        opacity: calc(var(--progress) * 100);
-        box-shadow: 0 0 0 1px #fff;
-    }
+	}
+	#divScreenProgress {
+		background: linear-gradient(to right, #fffa 0%, #fffa var(--progress), #0000 var(--progress));
+		width: 200px;
+		height: 8px;
+		position: absolute;
+		z-index: 1;
+		margin: 18px;
+		border-radius: 4px;
+		border: 1px solid #000;
+		opacity: calc(var(--progress) * 100);
+		box-shadow: 0 0 0 1px #fff;
+	}
 	#cvsScreen {
 		border: 1px solid #000;
 		background: #0006;
@@ -172,15 +172,15 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 	#divPayloads > .divSubBlock {
 		flex-wrap: wrap;
 	}
-	#divFiles { 
-	    overflow: scroll;
-	    font-size: 12pt;
-	    background: #0004;
-	    height: 290px;
-	    border: 1px solid #000;
-	    width: -webkit-fill-available;
-	    opacity: var(--progressOpacity);
-    }
+	#divFiles {
+		overflow: scroll;
+		font-size: 12pt;
+		background: #0004;
+		height: 290px;
+		border: 1px solid #000;
+		width: -webkit-fill-available;
+		opacity: var(--progressOpacity);
+	}
 	#divFActions {
 		display: flex;
 		justify-content: flex-end;
@@ -209,23 +209,23 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		justify-content: space-between;
 		opacity: var(--progressOpacity);
 	}
-    .title {
-	    color: #fff;
-	    font-weight: bold;
-	    margin: 0 0 0 6px;
-	    line-height: 26px;
-	    font-family: sans-serif;
-	    cursor: pointer;
-    }
+	.title {
+		color: #fff;
+		font-weight: bold;
+		margin: 0 0 0 6px;
+		line-height: 26px;
+		font-family: sans-serif;
+		cursor: pointer;
+	}
 	.divBlock {
-        border: 1px solid #000;
-        margin-top: 10px;
-        border-radius: 4px;
-        overflow:hidden;
+		border: 1px solid #000;
+		margin-top: 10px;
+		border-radius: 4px;
+		overflow:hidden;
 		margin: 4px;
 		padding: 2px;
 	}
-    .divSubBlock {
+	.divSubBlock {
 		border: 1px solid #000;
 		background: #0004;
 		display: flex;
@@ -235,15 +235,15 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		border-radius: 4px;
 		overflow: hidden;
 	}
-    .divValue {
-        background: #fff2;
-        margin: 1px;
-        border: 1px solid #000;
-        border-radius: 4px;
-        padding: 3px;
-        float: left;
-        width: min-content;
-    }
+	.divValue {
+		background: #fff2;
+		margin: 1px;
+		border: 1px solid #000;
+		border-radius: 4px;
+		padding: 3px;
+		float: left;
+		width: min-content;
+	}
 	.fItem { display: flex; flex-direction: row; padding: 0 3px; margin-left: 10px; cursor: pointer; }
 	.fTypeD { color: #882; }
 	.fTypeF { color: #288; }
@@ -255,7 +255,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 	}
 </style>
 <script>
-    var ws;
+	var ws;
 	var ssl = location.protocol === 'https:' ? true : false;
 	var wsState = false;
 	var shDataInput = "";
@@ -320,9 +320,9 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		return [headAngle, tiltAngle2, pitchAngle, rollAngle];
 	}
 
-    // ------------------------------------------------------
+	// ------------------------------------------------------
 
-    document.addEL("DOMContentLoaded", (e) => {
+	document.addEL("DOMContentLoaded", (e) => {
 		// ------------------------------------------------------
 		// Read sensors
 
@@ -361,9 +361,9 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			});
 			s.start();
 		} else {
-		    _("#divCompass").style.background="#622";
-		    _("#divCompass").style.color="#844";
-        }
+			_("#divCompass").style.background="#622";
+			_("#divCompass").style.color="#844";
+		}
 
 		// Light
 		if ("AmbientLightSensor" in window) {
@@ -389,8 +389,8 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		// Functions
 
 		// GPS
-        getGps = () => {
-            navigator.geolocation.getCurrentPosition( (e) => {
+		getGps = () => {
+			navigator.geolocation.getCurrentPosition( (e) => {
 				let d = new Date();
 
 				currentGpsData = {
@@ -407,15 +407,15 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					//"thousand": d.getSeconds()
 				};
 
-                _("#divGpsLat").value = currentGpsData.latitude;
-                _("#divGpsLon").value = currentGpsData.longitude;
-                _("#divGpsSpd").value = currentGpsData.speed;
-                _("#divGpsAlt").value = currentGpsData.altitude;
-            });
-        }
-        setInterval(getGps, 1000);
+				_("#divGpsLat").value = currentGpsData.latitude;
+				_("#divGpsLon").value = currentGpsData.longitude;
+				_("#divGpsSpd").value = currentGpsData.speed;
+				_("#divGpsAlt").value = currentGpsData.altitude;
+			});
+		}
+		setInterval(getGps, 1000);
 
-        // Log to console
+		// Log to console
 		wsLog = (tag, msg) => {
 			var el = _('#wsOutput');
 			el.value += (tag ? tag + ' ' : '') + msg + '\n';
@@ -431,7 +431,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					// Render screen
 					const ctx = _("#cvsScreen").getContext("2d");
 					ctx.fillRect(0, 0, 240, 320);
-	
+
 					e.data.forEach((row, y) => {
 						if (row.length < 230)
 							return;
@@ -451,10 +451,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		fileBrowse = (file) => {
 			return new Promise((resolve) => {
 				if (file.indexOf(" ") != -1) { resolve(); return; }
-	
+
 				let div = _("div.fTypeD[data-file='" + file + "']");
 				div = div ? div : _("#divFiles"); // Root folder or subfolder?
-	
+
 				if (div.childElementCount > 0) {
 					if (file != "/")
 						while (div.childElementCount) { div.children.item(0).remove(); } // Collapse folder
@@ -467,7 +467,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 						for (let i = 0; i < fArray.length; i++) {
 							let fType = fArray[i].slice(-1) == "/" ? "fTypeD" : "fTypeF"; // Check filetype
 							let pFile = '/' + (file + '/' + fArray[i]).replace(/^\/+|\/+$/g, ''); // Path incl. filename
-			
+
 							div.insertAdjacentHTML('beforeEnd', '<div class="fItem"><div class="' + fType + '" data-file="' + pFile + '">' + fArray[i] + '</div></div>');
 						}
 						resolve();
@@ -477,12 +477,12 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		}
 
 		// WS Connection handler
-        wsConnect = () => {
-            // Create a WebSocket connection
+		wsConnect = () => {
+			// Create a WebSocket connection
 			ws = new WebSocket( (ssl ? 'wss' : 'ws') + '://' + window.location.host + '/ws');
 
 			if (ws) {
-                // When WS establishes connection
+				// When WS establishes connection
 				ws.addEL('open', () => {
 					wsState = true;
 					_("#divStatus").style.background = "#0a4";
