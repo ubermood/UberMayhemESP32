@@ -1,7 +1,3 @@
-// -----------------------------------------------------------------------
-// Setup
-// -----------------------------------------------------------------------
-#include "uber_config.h"
 #include "UberESP.h"
 
 #if DEBUG
@@ -70,7 +66,6 @@ uint32_t getChipId() {
 // -----------------------------------------------------------------------
 // Initialize library
 // -----------------------------------------------------------------------
-
 void UberESP::init() {
   EEPROM.begin(512);
   configLoad();
@@ -84,7 +79,6 @@ void UberESP::init() {
 // -----------------------------------------------------------------------
 // EEPROM
 // -----------------------------------------------------------------------
-
 void UberESP::configLoad() {
   D_println("[ CONF ] Loading config from EEPROM");
 
@@ -123,7 +117,6 @@ void UberESP::configSave() {
 // -----------------------------------------------------------------------
 // Safe-mode check
 // -----------------------------------------------------------------------
-
 bool UberESP::safemodeCheck() {
   // Check if safemode flag is set in EEPROM:
   //  1 = Safe mode on  : When ON... run in safemode to be able to flash a new firmware, but set it OFF for next boot
@@ -391,7 +384,6 @@ void UberESP::onWifiEvent(WiFiEvent_t event) {
 // -----------------------------------------------------------------------
 // MDNS
 // -----------------------------------------------------------------------
-
 void UberESP::mdnsStart() {
   // Wait for MDNS responder to begin
   if (!MDNS.begin(config.deviceName)) {
@@ -902,7 +894,7 @@ void UberESP::onMqttDisconnect(AsyncMqttClientDisconnectReason reason) {
 
   if (WiFi.isConnected()) {
     D_println("[ DEBUG ] Start MQTT connection timer..");
-    mqttReconnectTimer.once(2, +[](Uber* timerInstance) { timerInstance->mqttConnect(); }, this);
+    mqttReconnectTimer.once(2, +[](UberESP* timerInstance) { timerInstance->mqttConnect(); }, this);
   }
 }
 

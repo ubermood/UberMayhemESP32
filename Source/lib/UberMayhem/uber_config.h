@@ -17,6 +17,10 @@
 
 #define CONF_MQTT_SERVER   "mqtt-server.loc"  // Default MQTT server to use
 
+#define I2C_SDA             9                 // I2C SDA pin 9 / 21
+#define I2C_SCL             7                 // I2C SCL pin 7 / 22
+#define I2C_DEV_ADDR        0x51              // I2C Device address for this ESP-module
+
 // Defined automatically in platformio.ini
 //#define LED_PIN          2                  // Define on-board LED pin (ESP32-DevBoard)
 //#define LED_PIN          15                 // Define on-board LED pin (ESP32-S2-Mini)

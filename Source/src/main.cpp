@@ -1,25 +1,12 @@
 #include <Arduino.h>
 
-// --------------------------
-// LIB: UberESP
-// --------------------------
+#include "uber_config.h"
 #include "UberESP.h"
-UberESP uberESP;
-
-// --------------------------
-// LIB: UberPayload
-// --------------------------
 #include "UberPayload.h"
-UberPayload uberPayload;
-
-// --------------------------
-// LIB: UberPortapack
-// --------------------------
-#define I2C_SDA      9      // I2C SDA pin 9 / 21
-#define I2C_SCL      7      // I2C SCL pin 7 / 22
-#define I2C_DEV_ADDR 0x51   // I2C Device address for this ESP-module
-
 #include "UberPortapack.h"
+
+UberESP uberESP;
+UberPayload uberPayload;
 UberPortapack uberPortapack;
 
 #if FEATURE_MQTT
@@ -272,7 +259,7 @@ void setup(void) {
     uberPortapack.init(I2C_SDA, I2C_SCL, I2C_DEV_ADDR);
     uberPortapack.setOnShellDataCallback(onPPShellData);
 
-    // Start core_loop pinned to Core #1
+    // Start coreTask pinned to Core #1
     xTaskCreatePinnedToCore(coreTask, "coreTask", 2048, NULL, 2, NULL, 1);
   }
 }
