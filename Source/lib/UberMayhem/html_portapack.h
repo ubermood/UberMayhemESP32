@@ -308,7 +308,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		const yaw   = Math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z));
 		const pitch = Math.asin(2 * (w * y - z * x));
 		const roll  = Math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y));
-		
+
 		const headAngle = (360 - yaw * (180 / Math.PI)) % 360;
 		const pitchAngle = pitch * (180 / Math.PI);
 		const rollAngle = roll * (180 / Math.PI);
@@ -499,13 +499,13 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					}, 3000);
 				});
 
-                // When WS connection fails
+				// When WS connection fails
 				ws.addEL('error', () => {
 					wsState = false;
 					ws.close();
 				});
 
-                // When WS closes connection
+				// When WS closes connection
 				ws.addEL('close', () => {
 					wsState = false;
 					shDataState = false
@@ -514,10 +514,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					_("#divStatus").style.background = "#a04";
 					_("#divStatus").innerHTML = "&#10007;";
 					_(":root").style.setProperty('--progress', '0%');
-				    setTimeout(() => { wsConnect(); }, 3000);
+					setTimeout(() => { wsConnect(); }, 3000);
 				});
 
-                // When receiving WS message
+				// When receiving WS messages
 				ws.addEL('message', (e) => {
 					if (e.data.length == 1)
 						shDataState = true;
@@ -535,7 +535,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 							const cmd = shDataArr[0];
 							const isScreen = cmd.startsWith("screenframeshort");
 							const isFile = cmd.startsWith("fread");
-							
+
 							if (isScreen || isFile) {
 								if (isScreen) {
 									shBytesToRead = 240 * 320;
@@ -548,7 +548,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 							} else
 								lines.forEach(line => wsLog('', line));
 						}
-						
+
 						// Check for promfBrowse
 						if (shDataInput.endsWith(PROMPT)) {
 							if (shDataInput.length > PROMPT.length)
@@ -559,7 +559,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 							shDataState = false;
 						}
 					}
-					
+
 					// Other messages handler
 					else {
 						wsLog('', e.data);
@@ -575,33 +575,33 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					}
 				});
 			}
-        }
+		}
 
 		sendMessage = (msg, cb) => new Promise((resolve, reject) => {
-		    if (!wsState) {
-		    	wsLog('!!', 'Cannot send, not connected');
-		    	return reject();
-		    };
-		    if (!msg || shDataState) {
-		    	wsLog("!!", "Another shell process still running");
-		    	return reject();
-		    };
-		    
-		    ws.send(msg);
-		    wsLog('=>', msg);
+			if (!wsState) {
+				wsLog('!!', 'Cannot send, not connected');
+				return reject();
+			};
+			if (!msg || shDataState) {
+				wsLog("!!", "Another shell process still running");
+				return reject();
+			};
+
+			ws.send(msg);
+			wsLog('=>', msg);
 
 			// Shell message
-		    shDataState = msg.toLowerCase().startsWith("ppshell=") ? true : false;
+			shDataState = msg.toLowerCase().startsWith("ppshell=") ? true : false;
 
-		    const check = () => {
-		        if (shDataState)
-		        	return setTimeout(check, 100);
+			const check = () => {
+				if (shDataState)
+					return setTimeout(check, 100);
 
-		        const result = { cmd: shDataArr[0], data: shDataArr.slice(1) };
-		        shDataArr = [];
-		        (cb || resolve)(result);
-		    };
-		    check();
+				const result = { cmd: shDataArr[0], data: shDataArr.slice(1) };
+				shDataArr = [];
+				(cb || resolve)(result);
+			};
+			check();
 		});
 
 		// Unselect file
@@ -646,9 +646,9 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			// Remove animation from all and add it on running paylod div
 			__('#divPayloads .divValue[style*="animation"]').forEach(e => e.style.animation = "");
 			_('#divPayloads .divValue:has(input[data-payload="' + payload.name + '"])').style.animation = css;
-    	}
+		}
 
-        // ------------------------------------------------------
+		// ------------------------------------------------------
 		// Event listeners
 
 		// Close banner
@@ -657,7 +657,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		});
 
 		// Enter key in wsInput field
-        _("#wsInput").addEL('keypress', (e) => {
+		_("#wsInput").addEL('keypress', (e) => {
 			if (e.key === 'Enter')
 				sendMessage(_('#wsInput').value);
 		});
@@ -730,7 +730,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 							const blob = new Blob([arrUint], { type: 'application/octet-stream' });
 							const url = URL.createObjectURL(blob);
 							const a = document.createElement('a');
-	
+
 							a.href = url;
 							a.download = filename.split('/').pop();
 							a.click();
@@ -794,10 +794,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			});
 		});
 
-        // ------------------------------------------------------
+		// ------------------------------------------------------
 		// Main
 
-        wsConnect();
+		wsConnect();
 
 		// Send sensor data every 5s
 		sendCurrentData = () => {
@@ -880,7 +880,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			</div>
 		</div>
 
-	    <div id="divConsole" class="divBlock">
+		<div id="divConsole" class="divBlock">
 			<span class="title">Console</span>
 			<div class="divSubBlock">
 				<textarea id="wsOutput"></textarea>
@@ -888,7 +888,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			</div>
 		</div>
 
-	    <div id="divFBrowser" class="divBlock">
+		<div id="divFBrowser" class="divBlock">
 			<span class="title">File Browser</span>
 			<div class="divSubBlock">
 				<div id="divFiles"></div>
