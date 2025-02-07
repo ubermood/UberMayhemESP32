@@ -15,24 +15,19 @@ The project has no deadline and will only progress when motivation and opportuni
 
 * ***Step 1 (prerequisite):***
 
-	Install **VisualStudio Code**
-
+	Install **VisualStudio Code**<br>
 	Install **PlatformIO IDE** extension in VS Code
-
 
 * ***Step 2:***
 
-	Clone this project:
-
+	Clone this project:<br>
 	``git clone https://github.com/ubermood/UberMayhemESP32.git``
 
-	In PlatformIO, select **File -> Open Folder...** from the menu.
+	In PlatformIO, select **File -> Open Folder...** from the menu.<br>
+	Browse to ``UberMayhemESP32/Source`` folder and click **Open** button.
 
-  Browse to ``UberMayhemESP32/Source`` folder and click **Open** button.
-
-	>Check ``lib/UberMayhem/uber_config.ini`` file and change the predefined config entries if needed (not mandatory).
-	These are the initial, default config values used when no saved config exists in the ESP EEPROM.
-
+	>Check ``lib/UberMayhem/uber_config.ini`` file and change the predefined config entries if needed (not mandatory).<br>
+	>These are the initial, default config values used when no saved config exists in the ESP EEPROM.
 
 * ***Step 3:***
 
@@ -44,31 +39,27 @@ The project has no deadline and will only progress when motivation and opportuni
 
 	<ins>Flash firmware Over-The-Air:</ins>
  
-	**Build** the **firmware.bin** file (can be found in the hidden ``.pio/...`` folder structure).
-	Upload that file from **UberMayhem ESP configuration** page, by pressing **Firmware Update** button
-	(if you already have UberMayhemESP32 flashed on your ESP-device since before)
-
+	**Build** the **firmware.bin** file (can be found in the hidden ``.pio/...`` folder structure).<br>
+	Upload that file from **UberMayhem ESP configuration** page, by pressing **Firmware Update** button<br>
+	(if you already have UberMayhemESP32 flashed on your ESP-device since before)<br>
 
 * ***Step 4:***
   
   Connect to the wireless AccessPoint SSID named **ESP_123ABC** with the password that you set earlier in ``uber_config.ini`` ..or use the default PW: "***password***".
 
-  <ins>Browse to URL:</ins>
-
-    http://10.0.0.1 - to access the ESP Configuration page
-  
+  <ins>Browse to URL:</ins><br>
+    http://10.0.0.1 - to access the ESP Configuration page<br>
     http://10.0.0.1/portapack - to access the PortaPack Command and Control Center
 
 ## Notes
 
-PortaPack compapibility have only been fully tested on a **ESP32-S2 Mini** device.
-It should work with **ESP32-S3 SuperMini** and **ESP32-S3 DevKit** boards also, but has not been verified yet.
+PortaPack compapibility have only been fully tested on a **ESP32-S2 Mini** device.<br>
+
+It should work with **ESP32-S3 SuperMini** and **ESP32-S3 DevKit** boards also, but has not been verified yet.<br>
 It may even be preferred to use these boards, since they are slightly better, have more RAM etc.
 
->ESP32 board can be changed in ``platformio.ini`` file by changing ``default_envs = < ... >``.
->
->There are alreay a couple of them listed and pre-made to test out.
->
+>ESP32 board can be changed in ``platformio.ini`` file by changing ``default_envs = < ... >``.<br>
+>There are alreay a couple of them listed and pre-made to test out.<br>
 >
 >You may also need to change the currently assigned I2C pins in ``uber_config.ini`` to match your specific setup.
 
@@ -86,17 +77,17 @@ It may even be preferred to use these boards, since they are slightly better, ha
 
 ## WebSocket commands
 
-***Sensors:***
+***Sensors:***<br>
 Get/Set sensor data currently stored on the ESP, that will be communicated via I2C interface to the PortaPack whenever it requests for it.
 
-***Payloads:***
-Payloads are functions available on the ESP-device that can be executed.
+***Payloads:***<br>
+Payloads are functions available on the ESP-device that can be executed.<br>
 There are currently only SSID beacon spam related stuff available, but the list may be extended in the future.
 
-***Portapack:***
+***Portapack:***<br>
 PortaPack specific commands.
 
-***ESP:***
+***ESP:***<br>
 ESP specific commands.
 
 ---
@@ -124,17 +115,16 @@ ESP specific commands.
 
 ## Known issues
 
-- Some "payloads" relies on the APs that have been found after a wireless scan
+- Some "payloads" relies on the APs that have been found after a wireless scan.<br>
   The scan is only done once - when you access the config page (URL: /), to populate the AP dropdown selector
 
 - File Upload & Edit functions have not been implemented yet
 
 - If more than 1 client is connected to the webpage, websocket communication interference happens (especially on downloads and screen updates)
 
-- Experimental HTTPS support is not working on ESP32-S2 Mini, propably since it has not enough memory (Utilize PSRAM?).
-  Workaround is to enable some Chrome-flags (hints are shown as a banner when accessing "/portapack" URL).
-  
-  The ESP32-S3 boards may work better..
+- Experimental HTTPS support is not working on ESP32-S2 Mini, propably since it has not enough memory (Utilize PSRAM?).<br>
+  Workaround is to enable some Chrome-flags (hints are shown as a banner when accessing "/portapack" URL).<br>
+  The ESP32-S3 boards may work better...
 
 ## Screenshot (sensors, console & file browser)
 ![PortaPack_Screenshot1](https://github.com/user-attachments/assets/2c9b018d-c21a-4518-889c-0796bb0e53d8)
