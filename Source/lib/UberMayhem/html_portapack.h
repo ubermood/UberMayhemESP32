@@ -253,6 +253,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		justify-content: space-between;
 		width: -webkit-fill-available;
 	}
+	.manInput { background: #700; }
 </style>
 <script>
 	var ws;
@@ -264,6 +265,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 	var shBytesRead = 0;
 	var shBytesToRead = 0;
 	var PROMPT = 'ch> ';
+	var manualInput = [];
 
 	var shDataInputDebug = "";
 
@@ -300,7 +302,7 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 	EventTarget.prototype.addEL = function(t, l, o) { return this.addEventListener(t, l, o); }
 
 	// Round decimals
-	roundDecimals = (n, d) => { const res = Math.round(parseFloat(n) * Math.pow(10, d)) / Math.pow(10, d); return res ? res : 0; }
+	roundDecimals = (n, d = 8) => { const res = Math.round(parseFloat(n) * Math.pow(10, d)) / Math.pow(10, d); return res ? res : 0; }
 
 	// Convert quaternion to heading in degrees
 	calcQuaternion = (q) => {
@@ -331,16 +333,14 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			const s = new Gyroscope({ frequency: 25 });
 			s.addEL("reading", (e) => { _("#divGyrVal").value = roundDecimals(s.x,4) +" | "+ roundDecimals(s.y,4) +" | "+ roundDecimals(s.z,4); });
 			s.start();
-		} else
-			_("#divGyrVal").value = "Error";
+		}
 
 		// Accelerometer
 		if ("Accelerometer" in window) {
 			const s = new Accelerometer({ frequency: 25 });
 			s.addEL("reading", (e) => { _("#divAclVal").value = roundDecimals(s.x,4) +" | "+ roundDecimals(s.y,4) +" | "+ roundDecimals(s.z,4);	});
 			s.start();
-		} else
-			_("#divAclVal").value = "Error";
+		}
 
 		// Orientation
 		if ("AbsoluteOrientationSensor" in window) {
@@ -354,6 +354,9 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					"roll": roundDecimals(roll, 4),
 					"pitch": roundDecimals(pitch, 4)
 				};
+
+				if ( !manualInput.includes("divOriAng") ) _("#divOriAng").value = currentOriData.angle;
+				if ( !manualInput.includes("divOriTil") ) _("#divOriTil").value = currentOriData.tilt;
 
 				_(":root").style.setProperty('--angleZ', currentOriData.angle + 'deg');
 				_("#divTilt").style.top = -49 + currentOriData.pitch / 2 + 'px';
@@ -370,11 +373,11 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			const s = new AmbientLightSensor();
 			s.addEL("reading", (e) => {
 				currentLightData.light = parseInt(s.illuminance);
-				_("#divLuxVal").value = currentLightData.light;
+
+				if ( !manualInput.includes("divLuxVal") ) _("#divLuxVal").value = currentLightData.light;
 			});
 			s.start();
 		} else {
-			_("#divLuxVal").value = "Error";
 			_("#divBannerText").innerHTML = 'Sensor(s) missing!<br>You may need to enable sensor extra classes.<br><br>Link: chrome://flags/#enable-generic-sensor-extra-classes';
 			_("#divBanner").style.display = "block";
 		}
@@ -407,10 +410,10 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 					//"thousand": d.getSeconds()
 				};
 
-				_("#divGpsLat").value = currentGpsData.latitude;
-				_("#divGpsLon").value = currentGpsData.longitude;
-				_("#divGpsSpd").value = currentGpsData.speed;
-				_("#divGpsAlt").value = currentGpsData.altitude;
+				if ( !manualInput.includes("divGpsLat") ) _("#divGpsLat").value = currentGpsData.latitude;
+				if ( !manualInput.includes("divGpsLon") ) _("#divGpsLon").value = currentGpsData.longitude;
+				if ( !manualInput.includes("divGpsSpd") ) _("#divGpsSpd").value = currentGpsData.speed;
+				if ( !manualInput.includes("divGpsAlt") ) _("#divGpsAlt").value = currentGpsData.altitude;
 			});
 		}
 		setInterval(getGps, 1000);
@@ -776,22 +779,31 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		__('span').forEach(function(elX) {
 			var height = "", arrow = "&#9662";
 
-			if (elX.innerText != "Screen" && elX.innerText != "Console") {
+			if (elX.innerText != "Screen" && elX.innerText != "Console")
 				height = "24px"; arrow = "&#9656;";
-			}
 
 			elX.parentElement.style["max-height"] = height;
 			elX.innerHTML = arrow + " " + elX.innerHTML;
 
-			elX.addEL("click", function(e) {
+			elX.addEL('click', function(e) {
 				var height = "", arrow = "&#9662";
-				if (e.target.parentElement.style["max-height"] != "24px") {
+
+				if (e.target.parentElement.style["max-height"] != "24px")
 					height = "24px"; arrow = "&#9656;";
-				}
 
 				e.target.parentElement.style["max-height"] = height;
 				e.target.innerHTML = arrow + e.target.innerHTML.slice(1)
 			});
+		});
+
+		_('#divSensors').addEL('click', (e) => {
+			if (e.target.type == "text") {
+				// Set textfield to manual input and add element id to array
+				e.target.classList.add("manInput");
+
+				if ( !manualInput.includes(e.target.id) )
+					manualInput.push(e.target.id);
+			}
 		});
 
 		// ------------------------------------------------------
@@ -802,8 +814,21 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 		// Send sensor data every 5s
 		sendCurrentData = () => {
 			if (wsState && !shDataState) {
+				// Check manual input mode
+				if (manualInput.includes("divGpsLat")) currentGpsData.latitude = roundDecimals(_("#divGpsLat").value);
+				if (manualInput.includes("divGpsLon")) currentGpsData.longitude = roundDecimals(_("#divGpsLon").value);
+				if (manualInput.includes("divGpsSpd")) currentGpsData.speed = roundDecimals(_("#divGpsSpd").value);
+				if (manualInput.includes("divGpsAlt")) currentGpsData.altitude = roundDecimals(_("#divGpsAlt").value);
+				if (manualInput.includes("divOriAng")) currentOriData.angle = roundDecimals(_("#divOriAng").value);
+				if (manualInput.includes("divOriTil")) currentOriData.tilt = roundDecimals(_("#divOriTil").value);
+				if (manualInput.includes("divEnvTem")) currentEnvData.temperature = roundDecimals(_("#divEnvTem").value);
+				if (manualInput.includes("divEnvHum")) currentEnvData.humidity = roundDecimals(_("#divEnvHum").value);
+				if (manualInput.includes("divEnvPrs")) currentEnvData.pressure = roundDecimals(_("#divEnvPrs").value);
+				if (manualInput.includes("divLuxVal")) currentLightData.light = roundDecimals(_("#divLuxVal").value);
+
 				sendMessage('setGps=' + JSON.stringify(currentGpsData));
 				sendMessage('setOri=' + JSON.stringify(currentOriData));
+				sendMessage('setEnv=' + JSON.stringify(currentEnvData));
 				sendMessage('setLight=' + JSON.stringify(currentLightData));
 			}
 		}
@@ -844,13 +869,18 @@ const char HTML_PORTAPACK[] PROGMEM = R"=====(
 			<span class="title">Sensors</span>
 			<div class="divSubBlock">
 				<div>
-					<div class="divValue">LAT<input id="divGpsLat" value="0"></div>
-					<div class="divValue">LON<input id="divGpsLon" value="0"></div>
-					<div class="divValue">SPD<input id="divGpsSpd" value="0"></div>
-					<div class="divValue">ALT<input id="divGpsAlt" value="0"></div>
-					<div class="divValue">LUX<input id="divLuxVal" value="0"></div>
-					<div class="divValue">GYR<input id="divGyrVal" value="0"></div>
-					<div class="divValue">ACL<input id="divAclVal" value="0"></div>
+					<div class="divValue">LAT<input id="divGpsLat" value="-"></div>
+					<div class="divValue">LON<input id="divGpsLon" value="-"></div>
+					<div class="divValue">SPD<input id="divGpsSpd" value="-"></div>
+					<div class="divValue">ALT<input id="divGpsAlt" value="-"></div>
+					<div class="divValue">ANG<input id="divOriAng" value="-"></div>
+					<div class="divValue">TIL<input id="divOriTil" value="-"></div>
+					<div class="divValue">TEM<input id="divEnvTem" value="-"></div>
+					<div class="divValue">HUM<input id="divEnvHum" value="-"></div>
+					<div class="divValue">PRS<input id="divEnvPrs" value="-"></div>
+					<div class="divValue">LUX<input id="divLuxVal" value="-"></div>
+					<div class="divValue" style="display:none;">GYR<input id="divGyrVal" value="-"></div>
+					<div class="divValue" style="display:none;">ACL<input id="divAclVal" value="-"></div>
 				</div>
 				<div>
 					<div id="divCompass">
