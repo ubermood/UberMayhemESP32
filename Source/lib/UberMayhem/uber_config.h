@@ -14,6 +14,7 @@
 #define CONF_WIFI_PASS     "wifi_ssid_pass"   // Default WIFI SSID password when unconfigured
 #define CONF_WIFI_AP_PASS  "password"         // Password to internal WIFI AP SSID
 #define CONF_WIFI_AP_STOP  false              // Stop internal AP on successful connect to remote AP
+//#define CONF_WIFI_POWER  WIFI_POWER_8_5dBm  // Set Wifi TX Power (Workaround! - see: https://github.com/espressif/arduino-esp32/issues/6767)
 
 #define CONF_MQTT_SERVER   "mqtt-server.loc"  // Default MQTT server to use
 

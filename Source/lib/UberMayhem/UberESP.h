@@ -138,6 +138,11 @@ class UberESP {
   static void wifiConnectWrapper(void *param) {
     UberESP *uberESP = reinterpret_cast<UberESP*>(param); // Obtain the instance pointer
 
+#ifdef CONF_WIFI_POWER
+    // Set WiFi TX power
+    WiFi.setTxPower(CONF_WIFI_POWER);
+#endif
+
     while (1) {
       uberESP->wifiConnect(); // Dispatch to the member function, now that we have an instance pointer
       vTaskDelay(pdMS_TO_TICKS(1000));
