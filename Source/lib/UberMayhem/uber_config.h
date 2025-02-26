@@ -1,5 +1,5 @@
 #define CONF_VERSION       CONF_VERSION_MIN " (UberMayhem for Portapack H4M by ubermood)"
-#define CONF_VERSION_MIN   "20250123"         // Minified version number
+#define CONF_VERSION_MIN   "20250226"         // Minified version number
 #define CONF_DEVICE_DESC   "UberMayhem"       // Shown as entity name in HASS
 
 #define DEBUG              true               // Serial Debug messages
